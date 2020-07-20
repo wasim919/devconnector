@@ -1,8 +1,6 @@
 {
-    "mongoURI": "mongodb+srv://tars:Tars@123@devconnector-xiwpd.mongodb.net/test?retryWrites=true&w=majority",
-    "jwtSecret": "myjwtsecret",
-    "githubClientId": "584423866cfcbba7ccc6",
-    "githubSecret": "9abb77299510e353e941b9c41a6c2627f461cfef"
+  "mongoURI": "mongodb://localhost:27017/devconnector",
+  "jwtSecret": "myjwtsecret",
+  "githubClientId": "584423866cfcbba7ccc6",
+  "githubSecret": "9abb77299510e353e941b9c41a6c2627f461cfef"
 }
-
-
