@@ -5,3 +5,4 @@ export { default as Register } from './auth/Register';
 export { default as Alert } from './layout/Alert';
 export { default as Dashboard } from './dashboard/Dashboard';
 export { default as PrivateRoute } from './routing/PrivateRoute';
+export { default as Loading } from './layout/Loading';
