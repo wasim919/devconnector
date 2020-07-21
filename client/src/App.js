@@ -1,10 +1,18 @@
 import React, { useEffect } from 'react';
-import { Navbar, Landing, Login, Register, Alert } from './components';
+import {
+  Navbar,
+  Landing,
+  Login,
+  Register,
+  Alert,
+  Dashboard,
+} from './components';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 import setAuthToken from './utils/setAuthToken';
 import { useDispatch } from 'react-redux';
 import { loadUser } from './actions/auth';
+import { PrivateRoute } from './components';
 
 if (localStorage.getItem('token')) {
   setAuthToken(localStorage.getItem('token'));
@@ -25,6 +33,7 @@ const App = () => {
           <Switch>
             <Route exact path='/login' component={Login} />
             <Route exact path='/register' component={Register} />
+            <PrivateRoute exact path='/dashboard' component={Dashboard} />
           </Switch>
         </section>
       </>
