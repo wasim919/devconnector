@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { setAlert, removeAlert } from '../../actions/alert';
-import { useDispatch } from 'react-redux';
-import v4 from 'uuid/v4';
+import { Link, Redirect } from 'react-router-dom';
+import { setAlert } from '../../actions/alert';
+import { register } from '../../actions/auth';
+import { connect } from 'react-redux';
 
-const Register = () => {
-  const dispatch = useDispatch();
+const Register = ({ setAlert, register, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -17,17 +16,15 @@ const Register = () => {
   const registerUser = async (e) => {
     e.preventDefault();
     if (password !== password2) {
-      const id = v4();
-      console.log(id);
-      dispatch(setAlert('Passwords do not match', 'danger', id));
-      setTimeout(() => dispatch(removeAlert(id)), 3000);
-      console.log('Passwords do not match');
+      setAlert('Passwords do not match', 'danger');
     } else {
-      console.log(formData);
+      register({ name, email, password });
     }
   };
   const { name, email, password, password2 } = formData;
-
+  if (isAuthenticated) {
+    return <Redirect to='/dashboard' />;
+  }
   return (
     <>
       <h1 className='large text-primary'>Sign Up</h1>
@@ -42,7 +39,6 @@ const Register = () => {
             value={name}
             onChange={(e) => onChange(e)}
             name='name'
-            required
           />
         </div>
         <div className='form-group'>
@@ -52,7 +48,6 @@ const Register = () => {
             value={email}
             onChange={(e) => onChange(e)}
             name='email'
-            required
           />
           <small className='form-text'>
             This site uses Gravatar so if you want a profile image, use a
@@ -66,8 +61,6 @@ const Register = () => {
             name='password'
             value={password}
             onChange={(e) => onChange(e)}
-            minLength='6'
-            required
           />
         </div>
         <div className='form-group'>
@@ -77,8 +70,6 @@ const Register = () => {
             name='password2'
             value={password2}
             onChange={(e) => onChange(e)}
-            minLength='6'
-            required
           />
         </div>
         <input
@@ -95,4 +86,8 @@ const Register = () => {
   );
 };
 
-export default Register;
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.authReducer.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { setAlert, register })(Register);
