@@ -6,6 +6,7 @@ import {
   Register,
   Alert,
   Dashboard,
+  CreateProfile,
 } from './components';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
@@ -34,6 +35,11 @@ const App = () => {
             <Route exact path='/login' component={Login} />
             <Route exact path='/register' component={Register} />
             <PrivateRoute exact path='/dashboard' component={Dashboard} />
+            <PrivateRoute
+              exact
+              path='/create-profile'
+              component={CreateProfile}
+            />
           </Switch>
         </section>
       </>
