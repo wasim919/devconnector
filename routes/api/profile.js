@@ -11,16 +11,14 @@ const { check, validationResult } = require('express-validator');
 // @access Public
 router.get('/me', auth, async (req, res) => {
   try {
-    const profile = await Profile.find({
+    const profile = await Profile.findOne({
       user: req.user.id,
     }).populate('user', ['name', 'avatar']);
     console.log(req.user.id);
     if (!profile) {
-      return res
-        .status(400)
-        .json({ errors: [{ msg: 'Profile doesnt exist' }] });
+      return res.status(400).json({ msg: 'There is no profile for this user' });
     }
-    res.status(200).json({ profile });
+    res.status(200).json(profile);
   } catch (err) {
     console.log(err.message);
     res.status(500).send('Server error');

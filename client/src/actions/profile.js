@@ -6,12 +6,14 @@ export const getCurrentProfile = () => async (dispatch) => {
     const res = await axios.get('/api/profile/me');
     dispatch({
       type: GET_PROFILE,
-      payload: res.data.profile,
+      payload: res.data,
     });
+    console.log(res.data);
   } catch (err) {
+    console.log(err);
     dispatch({
       type: PROFILE_ERR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: { msg: 'Profile doesnot exist', status: 404 },
     });
   }
 };
