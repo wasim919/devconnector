@@ -142,7 +142,7 @@ router.put(
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ errors: errors.array() });
     }
     const {
       title,
@@ -166,7 +166,7 @@ router.put(
       const profile = await Profile.findOne({ user: req.user.id });
       profile.experience.unshift(newExp);
       await profile.save();
-      res.status(200).json({ profile });
+      res.status(200).json(profile);
     } catch (err) {
       console.log(err.message);
       res.status(500).send('Server error');

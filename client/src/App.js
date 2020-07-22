@@ -7,6 +7,7 @@ import {
   Alert,
   Dashboard,
   CreateProfile,
+  EditProfile,
 } from './components';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
@@ -40,6 +41,7 @@ const App = () => {
               path='/create-profile'
               component={CreateProfile}
             />
+            <PrivateRoute exact path='/edit-profile' component={EditProfile} />
           </Switch>
         </section>
       </>

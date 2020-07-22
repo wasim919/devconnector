@@ -7,3 +7,5 @@ export { default as Dashboard } from './dashboard/Dashboard';
 export { default as PrivateRoute } from './routing/PrivateRoute';
 export { default as Loading } from './layout/Loading';
 export { default as CreateProfile } from './profile-forms/CreateProfile';
+export { default as EditProfile } from './profile-forms/EditProfile';
+export { default as DashboardActions } from './dashboard/DashboardActions';
