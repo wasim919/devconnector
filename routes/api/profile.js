@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../../middleware/auth');
 const Profile = require('../../models/Profile');
+const Post = require('../../models/Post');
 const User = require('../../models/User');
 const config = require('config');
 const request = require('request');
@@ -121,6 +122,7 @@ router.get('/user/:user_id', async (req, res) => {
 
 router.delete('/', auth, async (req, res) => {
   try {
+    await Post.deleteMany({ user: req.user.id });
     await Profile.findOneAndRemove({ user: req.user.id });
     await User.findOneAndRemove({ _id: req.user.id });
     res.status(200).json({ msg: 'Deleted' });
@@ -182,7 +184,7 @@ router.delete('/experience/:exp_id', auth, async (req, res) => {
       .indexOf(req.params.exp_id);
     profile.experience.splice(deleteIndex, 1);
     await profile.save();
-    res.status(200).json({ msg: 'Experience Deleted' });
+    res.status(200).json(profile);
   } catch (err) {
     console.log(err.message);
     res.status(500).send('Server error');
@@ -241,7 +243,7 @@ router.delete('/education/:edu_id', auth, async (req, res) => {
       .indexOf(req.params.edu_id);
     profile.education.splice(removeIndex, 1);
     await profile.save();
-    res.status(200).json({ msg: 'Profile education deleted' });
+    res.status(200).json(profile);
   } catch (err) {
     console.log(err.message);
     res.status(500).send('Server error');
