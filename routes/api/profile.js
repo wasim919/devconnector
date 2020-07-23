@@ -35,9 +35,8 @@ router.post(
   ],
   async (req, res) => {
     const errors = validationResult(req);
-    console.log('hello');
     if (!errors.isEmpty()) {
-      res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ errors: errors.array() });
     }
     const {
       company,
@@ -72,7 +71,6 @@ router.post(
     if (instagram) profileFields.social.instagram = instagram;
     if (linkedin) profileFields.social.linkedin = linkedin;
     try {
-      console.log('hello');
       let profile = await Profile.findOne({ user: req.user.id });
       if (profile) {
         profile = await Profile.findOneAndUpdate(
@@ -92,15 +90,15 @@ router.post(
   }
 );
 
-// router.get('/', async (req, res) => {
-//     try {
-//         const profiles = await Profile.find().populate('user', ['name', 'avatar']);
-//         res.status(200).json(profiles);
-//     } catch (err) {
-//         console.log(err.message);
-//         res.status(500).json('Server error');
-//     }
-// })
+router.get('/', async (req, res) => {
+  try {
+    const profiles = await Profile.find().populate('user', ['name', 'avatar']);
+    res.status(200).json(profiles);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).json('Server error');
+  }
+});
 
 router.get('/user/:user_id', async (req, res) => {
   try {

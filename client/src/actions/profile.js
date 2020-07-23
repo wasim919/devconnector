@@ -5,6 +5,8 @@ import {
   UPDATE_PROFILE,
   DELETE_ACCOUNT,
   CLEAR_PROFILE,
+  GET_REPOS,
+  GET_PROFILES,
 } from './types';
 import { setAlert } from '../actions/alert';
 
@@ -18,6 +20,53 @@ export const getCurrentProfile = () => async (dispatch) => {
     console.log(res.data);
   } catch (err) {
     console.log(err);
+    dispatch({
+      type: PROFILE_ERR,
+      payload: { msg: 'Profile doesnot exist', status: 404 },
+    });
+  }
+};
+
+export const getProfiles = () => async (dispatch) => {
+  dispatch({ type: CLEAR_PROFILE });
+  try {
+    const res = await axios.get('/api/profile');
+    dispatch({
+      type: GET_PROFILES,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.log(err);
+    dispatch({
+      type: PROFILE_ERR,
+      payload: { msg: 'Profile doesnot exist', status: 404 },
+    });
+  }
+};
+
+export const getProfileById = (userId) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/profile/user/${userId}`);
+    dispatch({
+      type: GET_PROFILE,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERR,
+      payload: { msg: 'Profile doesnot exist', status: 404 },
+    });
+  }
+};
+
+export const getGithubRepos = (username) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/profile/github/${username}`);
+    dispatch({
+      type: GET_REPOS,
+      payload: res.data,
+    });
+  } catch (err) {
     dispatch({
       type: PROFILE_ERR,
       payload: { msg: 'Profile doesnot exist', status: 404 },
