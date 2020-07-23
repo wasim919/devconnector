@@ -9,3 +9,5 @@ export { default as Loading } from './layout/Loading';
 export { default as CreateProfile } from './profile-forms/CreateProfile';
 export { default as EditProfile } from './profile-forms/EditProfile';
 export { default as DashboardActions } from './dashboard/DashboardActions';
+export { default as AddExperience } from './profile-forms/AddExperience';
+export { default as AddEducation } from './profile-forms/AddEducation';

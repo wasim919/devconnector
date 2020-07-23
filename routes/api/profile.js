@@ -130,7 +130,7 @@ router.delete('/', auth, async (req, res) => {
   }
 });
 router.put(
-  '/',
+  '/experience',
   [
     auth,
     [
@@ -153,7 +153,7 @@ router.put(
       current,
       description,
     } = req.body;
-    const newExp = {
+    const newExperience = {
       title,
       company,
       location,
@@ -164,12 +164,12 @@ router.put(
     };
     try {
       const profile = await Profile.findOne({ user: req.user.id });
-      profile.experience.unshift(newExp);
+      profile.experience.unshift(newExperience);
       await profile.save();
-      res.status(200).json(profile);
+      return res.status(200).json(profile);
     } catch (err) {
       console.log(err.message);
-      res.status(500).send('Server error');
+      return res.status(500).send('Server error');
     }
   }
 );
@@ -202,7 +202,7 @@ router.put(
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ errors: errors.array() });
     }
     const {
       school,
@@ -213,23 +213,23 @@ router.put(
       current,
       description,
     } = req.body;
-    const newEducation = {
-      school,
-      degree,
-      fieldofstudy,
-      from,
-      to,
-      current,
-      description,
-    };
+    const newEducation = {};
+    if (school) newEducation.school = school;
+    if (degree) newEducation.degree = degree;
+    if (fieldofstudy) newEducation.fieldofstudy = fieldofstudy;
+    if (from) newEducation.from = from;
+    if (to) newEducation.to = to;
+    if (current) newEducation.current = current;
+    if (description) newEducation.description = description;
+
     try {
       const profile = await Profile.findOne({ user: req.user.id });
       profile.education.unshift(newEducation);
       await profile.save();
-      res.status(200).json({ profile });
+      return res.status(200).json(profile);
     } catch (err) {
       console.log(err.message);
-      res.status(500).send('Server error');
+      return res.status(500).send('Server error');
     }
   }
 );

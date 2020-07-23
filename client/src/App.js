@@ -8,6 +8,8 @@ import {
   Dashboard,
   CreateProfile,
   EditProfile,
+  AddExperience,
+  AddEducation,
 } from './components';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
@@ -42,6 +44,16 @@ const App = () => {
               component={CreateProfile}
             />
             <PrivateRoute exact path='/edit-profile' component={EditProfile} />
+            <PrivateRoute
+              exact
+              path='/add-experience'
+              component={AddExperience}
+            />
+            <PrivateRoute
+              exact
+              path='/add-education'
+              component={AddEducation}
+            />
           </Switch>
         </section>
       </>
