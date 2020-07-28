@@ -12,6 +12,8 @@ import {
   AddEducation,
   Profiles,
   Profile,
+  Posts,
+  Post,
 } from './components';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
@@ -58,6 +60,8 @@ const App = () => {
               path='/add-education'
               component={AddEducation}
             />
+            <PrivateRoute exact path='/posts' component={Posts} />
+            <PrivateRoute exact path='/posts/:id' component={Post} />
           </Switch>
         </section>
       </>
