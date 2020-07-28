@@ -6,6 +6,10 @@
 
 > Clone the project to your local machine.
 
+## Install all the dependencies:
+
+> `npm install`
+
 > Open the terminal in the main project directory
 
 > Run the project using:
